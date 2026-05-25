@@ -1,9 +1,5 @@
 import React, { useRef } from 'react';
-import {
-  TouchableOpacity, Text, StyleSheet, ActivityIndicator,
-  Animated, ViewStyle, TextStyle,
-} from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { TouchableOpacity, Text, StyleSheet, ActivityIndicator, Animated, ViewStyle, TextStyle, View } from 'react-native';
 import { Colors } from '../theme/colors';
 import { Typography } from '../theme/typography';
 import { Spacing } from '../theme/spacing';
@@ -31,64 +27,43 @@ export function Button({
 }: ButtonProps) {
   const scale = useRef(new Animated.Value(1)).current;
 
-  const handlePressIn = () => {
-    Animated.spring(scale, { toValue: 0.96, useNativeDriver: true, speed: 50, bounciness: 4 }).start();
-  };
-  const handlePressOut = () => {
-    Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 50, bounciness: 4 }).start();
-  };
+  const handlePressIn = () => Animated.spring(scale, { toValue: 0.97, useNativeDriver: true, speed: 50, bounciness: 2 }).start();
+  const handlePressOut = () => Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 50, bounciness: 2 }).start();
 
-  const heights: Record<ButtonSize, number> = { sm: 40, md: 52, lg: 58 };
-  const fontSizes: Record<ButtonSize, number> = { sm: 13, md: 15, lg: 16 };
-  const gradients: Record<ButtonVariant, string[] | null> = {
-    primary: gradient ?? Colors.gradientPrimary,
-    secondary: Colors.gradientPurple,
-    outline: null, ghost: null,
-    danger: Colors.gradientExpense,
+  const heights: Record<ButtonSize, number> = { sm: 40, md: 50, lg: 56 };
+  const fontSizes: Record<ButtonSize, number> = { sm: 13, md: 14, lg: 15 };
+
+  const bgColors: Record<ButtonVariant, string> = {
+    primary: Colors.primary,
+    secondary: Colors.primaryLight,
+    outline: Colors.transparent,
+    ghost: Colors.transparent,
+    danger: Colors.expense,
   };
-
-  const useGradient = gradients[variant] !== null;
-
-  const content = (
-    <>
-      {loading ? (
-        <ActivityIndicator color={Colors.white} size="small" />
-      ) : (
-        <>{icon}<Text style={[styles.label, { fontSize: fontSizes[size] }, variant === 'outline' && styles.labelOutline, variant === 'ghost' && styles.labelGhost, textStyle]}>{label}</Text></>
-      )}
-    </>
-  );
 
   return (
     <Animated.View style={[{ transform: [{ scale }] }, fullWidth && { width: '100%' }, style]}>
-      <TouchableOpacity
-        onPress={onPress}
-        onPressIn={handlePressIn}
-        onPressOut={handlePressOut}
-        disabled={disabled || loading}
-        activeOpacity={1}
-      >
-        {useGradient ? (
-          <LinearGradient colors={(gradients[variant] as string[])} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-            style={[styles.base, { height: heights[size] }, disabled && styles.disabled]}>
-            {content}
-          </LinearGradient>
-        ) : (
-          <Animated.View style={[styles.base, { height: heights[size] }, variant === 'outline' && styles.outline, variant === 'ghost' && styles.ghost, disabled && styles.disabled]}>
-            {content}
-          </Animated.View>
-        )}
+      <TouchableOpacity onPress={onPress} onPressIn={handlePressIn} onPressOut={handlePressOut} disabled={disabled || loading} activeOpacity={1}>
+        <View style={[
+          styles.base,
+          { height: heights[size], backgroundColor: bgColors[variant] },
+          variant === 'outline' && styles.outline,
+          disabled && styles.disabled,
+        ]}>
+          {loading
+            ? <ActivityIndicator color={variant === 'outline' || variant === 'ghost' ? Colors.primary : Colors.white} size="small" />
+            : <>{icon}<Text style={[styles.label, { fontSize: fontSizes[size] }, (variant === 'outline' || variant === 'ghost') && styles.labelDark, textStyle]}>{label}</Text></>
+          }
+        </View>
       </TouchableOpacity>
     </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
-  base: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: Spacing.radiusFull, gap: 8, paddingHorizontal: Spacing.xl },
-  label: { color: Colors.white, fontFamily: Typography.fontSemiBold, letterSpacing: 0.2 },
-  labelOutline: { color: Colors.primary },
-  labelGhost: { color: Colors.textSecondary },
-  outline: { borderWidth: 1.5, borderColor: Colors.primary, backgroundColor: Colors.primaryMuted },
-  ghost: { backgroundColor: Colors.transparent },
-  disabled: { opacity: 0.45 },
+  base: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 12, gap: 8, paddingHorizontal: Spacing.xl },
+  label: { color: Colors.white, fontFamily: Typography.fontSemiBold, letterSpacing: 0.1 },
+  labelDark: { color: Colors.primary },
+  outline: { borderWidth: 1.5, borderColor: Colors.primary, backgroundColor: Colors.transparent },
+  disabled: { opacity: 0.4 },
 });

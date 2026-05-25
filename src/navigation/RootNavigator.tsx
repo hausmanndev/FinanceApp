@@ -22,7 +22,7 @@ const Tab = createBottomTabNavigator<MainTabParamList>();
 const TAB_ITEMS = [
   { name: 'Dashboard' as const, label: 'Início', icon: 'home', iconOutline: 'home-outline' },
   { name: 'History' as const, label: 'Histórico', icon: 'receipt', iconOutline: 'receipt-outline' },
-  { name: 'Reports' as const, label: 'Relatórios', icon: 'stats-chart', iconOutline: 'stats-chart-outline' },
+  { name: 'Reports' as const, label: 'Relatórios', icon: 'bar-chart', iconOutline: 'bar-chart-outline' },
   { name: 'Subscriptions' as const, label: 'Planos', icon: 'star', iconOutline: 'star-outline' },
   { name: 'Profile' as const, label: 'Perfil', icon: 'person', iconOutline: 'person-outline' },
 ];
@@ -31,24 +31,17 @@ function TabItem({ item, isFocused, onPress }: { item: typeof TAB_ITEMS[0]; isFo
   const anim = useRef(new Animated.Value(isFocused ? 1 : 0)).current;
 
   useEffect(() => {
-    Animated.spring(anim, { toValue: isFocused ? 1 : 0, useNativeDriver: true, speed: 20, bounciness: 6 }).start();
+    Animated.spring(anim, { toValue: isFocused ? 1 : 0, useNativeDriver: false, speed: 20, bounciness: 4 }).start();
   }, [isFocused]);
 
-  const indicatorStyle = {
-    opacity: anim,
-    transform: [{ scaleX: anim.interpolate({ inputRange: [0, 1], outputRange: [0.5, 1] }) }],
-  };
-  const iconStyle = {
-    transform: [{ scale: anim.interpolate({ inputRange: [0, 1], outputRange: [1, 1.08] }) }],
-  };
+  const bgColor = anim.interpolate({ inputRange: [0, 1], outputRange: [Colors.transparent, Colors.primaryMuted] });
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.tabItem} activeOpacity={0.8}>
-      <Animated.View style={[styles.activeIndicator, indicatorStyle]} />
-      <Animated.View style={iconStyle}>
-        <Ionicons name={(isFocused ? item.icon : item.iconOutline) as any} size={22} color={isFocused ? Colors.primary : Colors.textMuted} />
+      <Animated.View style={[styles.tabPill, { backgroundColor: bgColor }]}>
+        <Ionicons name={(isFocused ? item.icon : item.iconOutline) as any} size={20} color={isFocused ? Colors.primary : Colors.textMuted} />
+        {isFocused && <Text style={styles.tabLabel}>{item.label}</Text>}
       </Animated.View>
-      <Text style={[styles.tabLabel, { color: isFocused ? Colors.primary : Colors.textMuted }]}>{item.label}</Text>
     </TouchableOpacity>
   );
 }
@@ -56,7 +49,7 @@ function TabItem({ item, isFocused, onPress }: { item: typeof TAB_ITEMS[0]; isFo
 function CustomTabBar({ state, navigation }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
   return (
-    <View style={[styles.tabBar, { paddingBottom: Math.max(insets.bottom, 8) }]}>
+    <View style={[styles.tabBar, { paddingBottom: Math.max(insets.bottom, 10) }]}>
       {state.routes.map((route, index) => (
         <TabItem
           key={route.key}
@@ -94,8 +87,8 @@ export function RootNavigator() {
 }
 
 const styles = StyleSheet.create({
-  tabBar: { flexDirection: 'row', backgroundColor: Colors.surface, borderTopWidth: 1, borderTopColor: Colors.border, paddingTop: 8, shadowColor: Colors.black, shadowOffset: { width: 0, height: -4 }, shadowOpacity: 0.3, shadowRadius: 12, elevation: 16 },
-  tabItem: { flex: 1, alignItems: 'center', gap: 3, paddingVertical: 4, position: 'relative' },
-  activeIndicator: { position: 'absolute', top: -8, width: 24, height: 3, borderRadius: 1.5, backgroundColor: Colors.primary },
-  tabLabel: { fontSize: 10, fontFamily: Typography.fontMedium },
+  tabBar: { flexDirection: 'row', backgroundColor: Colors.surface, borderTopWidth: 1, borderTopColor: Colors.border, paddingTop: 8, paddingHorizontal: 8 },
+  tabItem: { flex: 1, alignItems: 'center', paddingVertical: 2 },
+  tabPill: { flexDirection: 'row', alignItems: 'center', gap: 5, paddingVertical: 7, paddingHorizontal: 12, borderRadius: 20 },
+  tabLabel: { fontSize: 12, fontFamily: Typography.fontSemiBold, color: Colors.primary },
 });

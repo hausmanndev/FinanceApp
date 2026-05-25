@@ -10,13 +10,13 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#060A12"
+      "backgroundColor": "#F5F2EC"
     },
     "ios": {
       "supportsTablet": false,
       "infoPlist": {
         "NSCameraUsageDescription": "Tire foto de comprovantes e gastos.",
-        "NSPhotoLibraryUsageDescription": "Selecione imagens da galeria para anexar a transações.",
+        "NSPhotoLibraryUsageDescription": "Selecione imagens da galeria para anexar a transa\u00e7\u00f5es.",
         "NSPhotoLibraryAddUsageDescription": "Salvar fotos de comprovantes."
       }
     },
@@ -45,6 +45,7 @@
           "fonts": []
         }
       ]
-    ]
+    ],
+    "backgroundColor": "#F5F2EC"
   }
 }

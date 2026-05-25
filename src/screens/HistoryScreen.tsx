@@ -60,7 +60,7 @@ export function HistoryScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
-      <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
+      <StatusBar barStyle="dark-content" backgroundColor={Colors.bg} />
 
       {/* ── HEADER ── */}
       <View style={styles.header}>

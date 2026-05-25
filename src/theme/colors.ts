@@ -1,62 +1,55 @@
-// ============================================================
-// COLORS — Design system premium fintech dark
-// ============================================================
-
 export const Colors = {
-  // Backgrounds
-  bg: '#060A12',
-  surface: '#0D1321',
-  card: '#111827',
-  cardAlt: '#0F1929',
-  overlay: 'rgba(6,10,18,0.85)',
+  // Fundos — crème quente
+  bg: '#F5F2EC',
+  surface: '#FFFFFF',
+  card: '#FFFFFF',
+  cardAlt: '#FAF8F4',
+  overlay: 'rgba(26,20,13,0.5)',
 
-  // Borders
-  border: '#1E2A3D',
-  borderLight: '#2D3B52',
+  // Bordas
+  border: '#E5DDD0',
+  borderLight: '#EDE8E0',
 
-  // Primary — Indigo vibrante
-  primary: '#818CF8',
-  primaryDark: '#4F46E5',
-  primaryLight: '#A5B4FC',
-  primaryMuted: 'rgba(129,140,248,0.12)',
-  primaryGlow: 'rgba(129,140,248,0.25)',
+  // Primária — verde-floresta profundo
+  primary: '#1B4332',
+  primaryDark: '#0F2B20',
+  primaryLight: '#2D6A4F',
+  primaryMuted: 'rgba(27,67,50,0.09)',
 
   // Status
-  income: '#34D399',
-  incomeLight: '#6EE7B7',
-  incomeMuted: 'rgba(52,211,153,0.12)',
-  incomeGlow: 'rgba(52,211,153,0.25)',
+  income: '#2D6A4F',
+  incomeLight: '#52B788',
+  incomeMuted: 'rgba(45,106,79,0.10)',
 
-  expense: '#F87171',
-  expenseLight: '#FCA5A5',
-  expenseMuted: 'rgba(248,113,113,0.12)',
-  expenseGlow: 'rgba(248,113,113,0.25)',
+  expense: '#9B2335',
+  expenseLight: '#C0392B',
+  expenseMuted: 'rgba(155,35,53,0.09)',
 
-  warning: '#FBBF24',
-  warningMuted: 'rgba(251,191,36,0.12)',
+  warning: '#B5820A',
+  warningMuted: 'rgba(181,130,10,0.10)',
 
-  gold: '#F59E0B',
-  goldLight: '#FDE68A',
-  goldMuted: 'rgba(245,158,11,0.15)',
+  gold: '#B5820A',
+  goldLight: '#D4A843',
+  goldMuted: 'rgba(181,130,10,0.10)',
 
-  // Text
-  textPrimary: '#F1F5F9',
-  textSecondary: '#94A3B8',
-  textMuted: '#475569',
-  textDisabled: '#2D3B52',
+  // Texto
+  textPrimary: '#1A140D',
+  textSecondary: '#5C5046',
+  textMuted: '#9E9388',
+  textDisabled: '#C7BEB5',
 
   // Misc
   white: '#FFFFFF',
   black: '#000000',
   transparent: 'transparent',
 
-  // Gradients (arrays for LinearGradient)
-  gradientPrimary: ['#4F46E5', '#818CF8'] as string[],
-  gradientCard: ['#111827', '#0D1321'] as string[],
-  gradientBg: ['#060A12', '#0D1321'] as string[],
-  gradientIncome: ['#059669', '#34D399'] as string[],
-  gradientExpense: ['#DC2626', '#F87171'] as string[],
-  gradientGold: ['#B45309', '#F59E0B'] as string[],
-  gradientPurple: ['#7C3AED', '#A78BFA'] as string[],
-  gradientBlue: ['#1D4ED8', '#60A5FA'] as string[],
+  // "Gradientes" — sólidos, sem degradê
+  gradientPrimary: ['#1B4332', '#2D6A4F'] as string[],
+  gradientCard: ['#FFFFFF', '#FAF8F4'] as string[],
+  gradientBg: ['#F5F2EC', '#EDE8E0'] as string[],
+  gradientIncome: ['#2D6A4F', '#52B788'] as string[],
+  gradientExpense: ['#9B2335', '#C0392B'] as string[],
+  gradientGold: ['#B5820A', '#D4A843'] as string[],
+  gradientPurple: ['#1B4332', '#2D6A4F'] as string[],
+  gradientBlue: ['#1B4332', '#2D6A4F'] as string[],
 };

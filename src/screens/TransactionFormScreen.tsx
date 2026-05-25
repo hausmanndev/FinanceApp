@@ -4,7 +4,7 @@ import {
   Alert, Image, Modal, Dimensions, KeyboardAvoidingView, Platform, Animated,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LinearGradient } from 'expo-linear-gradient';
+
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
@@ -195,9 +195,7 @@ export function TransactionFormScreen() {
                   const isSelected = selectedCategory === cat.name;
                   return (
                     <TouchableOpacity key={cat.id} style={[styles.catItem, isSelected && { backgroundColor: cat.color + '22', borderColor: cat.color }]} onPress={() => setSelectedCategory(cat.name)}>
-                      <View style={[styles.catIcon, { backgroundColor: cat.color + '22' }]}>
-                        <Ionicons name={cat.icon as any} size={16} color={cat.color} />
-                      </View>
+                      <Text style={styles.catEmoji}>{cat.icon}</Text>
                       <Text style={[styles.catName, isSelected && { color: cat.color }]}>{cat.name}</Text>
                     </TouchableOpacity>
                   );
@@ -227,16 +225,16 @@ export function TransactionFormScreen() {
               ) : (
                 <View style={styles.imageActions}>
                   <TouchableOpacity style={styles.imageBtn} onPress={handleOpenCamera}>
-                    <LinearGradient colors={['#1E2A3D', '#111827']} style={styles.imageBtnGrad}>
+                    <View style={styles.imageBtnGrad}>
                       <Ionicons name="camera-outline" size={24} color={Colors.primary} />
                       <Text style={styles.imageBtnText}>Câmera</Text>
-                    </LinearGradient>
+                    </View>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.imageBtn} onPress={handlePickImage}>
-                    <LinearGradient colors={['#1E2A3D', '#111827']} style={styles.imageBtnGrad}>
+                    <View style={styles.imageBtnGrad}>
                       <Ionicons name="image-outline" size={24} color={Colors.primary} />
                       <Text style={styles.imageBtnText}>Galeria</Text>
-                    </LinearGradient>
+                    </View>
                   </TouchableOpacity>
                 </View>
               )}
@@ -282,9 +280,10 @@ const styles = StyleSheet.create({
   catItem: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingHorizontal: 10, paddingVertical: 8, borderRadius: Spacing.radiusMd, backgroundColor: Colors.surface, borderWidth: 1.5, borderColor: Colors.border },
   catIcon: { width: 28, height: 28, borderRadius: 8, alignItems: 'center', justifyContent: 'center' },
   catName: { color: Colors.textSecondary, fontSize: Typography.sm, fontFamily: Typography.fontMedium },
+  catEmoji: { fontSize: 18 },
   imageActions: { flexDirection: 'row', gap: Spacing.md },
   imageBtn: { flex: 1, borderRadius: Spacing.radiusMd, overflow: 'hidden', borderWidth: 1, borderColor: Colors.border },
-  imageBtnGrad: { padding: Spacing.base, alignItems: 'center', gap: 6 },
+  imageBtnGrad: { padding: Spacing.base, alignItems: 'center', gap: 6, backgroundColor: Colors.surface },
   imageBtnText: { color: Colors.textSecondary, fontSize: Typography.sm, fontFamily: Typography.fontMedium },
   imagePreviewWrap: { borderRadius: Spacing.radiusMd, overflow: 'hidden', position: 'relative' },
   imagePreview: { width: '100%', height: 180, borderRadius: Spacing.radiusMd },
